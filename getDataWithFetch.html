@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script>
         function imgDiv(user){
             const userImg = document.createElement("img");
@@ -15,40 +16,67 @@
             userHeading.textContent=`${user.name.title} ${user.name.first} ${user.name.last}`
             return userHeading;
         };
+        function search(data, inp){
+            const outPut=data.filter((user)=>user.name.first.toLowerCase().includes(inp.toLowerCase())||user.name.last.toLowerCase().includes(inp.toLowerCase()))
+            console.log("search")
+            return outPut
+        };
 
         function createUserList(users){
             const userList = document.createElement("div");
-
+            userList.id = "user-list";
             for(let i = 0;i<users.length; i++){
-                const user = user[i];
+                const user = users[i];
                 const userHeading = headerDiv(user);
                 const userImg =imgDiv(user);
-
                 const userDiv = document.createElement("div");
                 userDiv.appendChild(userHeading);
                 userDiv.appendChild(userImg);
-
                 userList.appendChild(userDiv);
             };
             return userList;
+        };
+
+        function performSearch(){
+            const searchInp = document.getElementById("searchbar");
+            const searchTerm = searchInp.value;
+            const filteredUsers = search(window.allUsers, searchTerm);
+
+            const main = document.getElementById("main");
+            const oldUserList = document.getElementById("user-list");
+            if (oldUserList) {
+                main.removeChild(oldUserList);
+            };
+    
+            const newUserList = createUserList(filteredUsers);
+            main.appendChild(newUserList);
         };
 
         function getUsers(element) {
             fetch("https://randomuser.me/api/?gender=female&results=30")
               .then((response) => response.json())
               .then((data) => {
-                const userList = createUserList(data.results);
-                element.appendChild(userList);
+                   window.allUsers=data.results;
+                   const userList = createUserList(data.results);
+                    element.appendChild(userList)
             });
         };
+
         document.addEventListener("DOMContentLoaded",()=>{
             const main = document.getElementById("main");
+            const btn = document.getElementById("searchButton");
+            const inp = document.getElementById("searchbar")
+            btn.addEventListener("click", performSearch);
             getUsers(main);
         });
     </script>
 </head>
 <body>
-    <main id="main">
+    <div class="flex ">
+        <input type="text" name="" id="searchbar" class="bg-gray-200 m-2 p-1 rounded-lg">
+        <button class="bg-blue-500 rounded-lg p-1 px-2 my-2" id="searchButton"> Sök</button>
+    </div>
+    <main id="main" class="mx-2">
         
     </main>
 </body>
