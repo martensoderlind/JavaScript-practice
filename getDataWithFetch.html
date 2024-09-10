@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function getUsers(element) {
+            fetch("https://randomuser.me/api/?gender=female&results=30")
+              .then((response) => response.json())
+              .then((data) => {
+                for(let i = 0;i<data.results.length; i++){
+                    const divUser = document.createElement("div");
+                    const name = document.createElement("h2");
+                    const img = document.createElement("img");
+                    
+                    name.textContent=data.results[i].name.first+" "+data.results[i].name.last;
+                    img.src=data.results[i].picture.medium
+                    element.appendChild(divUser);
+                    divUser.appendChild(img);
+                    divUser.appendChild(name);      
+                };
+            });
+        }
+        document.addEventListener("DOMContentLoaded",()=>{
+            const main = document.getElementById("main");
+            getUsers(main);
+        });
+    </script>
+</head>
+<body>
+    <main id="main">
+        
+    </main>
+</body>
+</html>
