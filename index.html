@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <script src="functions.js"></script>
+    <script>
+        console.log("salt> Function loaded");     
+        console.log(`company name is ${myFunctions.getCompanyName()}`);   
+        
+        function addListInMain(numberOfItems){
+            const ulElement = document.createElement("ul");
+
+            for (let i = 0;i<numberOfItems;i++){
+                const liItem = document.createElement("li");
+                liItem.textContent=`Item #${i+1}`;
+                ulElement.appendChild(liItem);
+            };
+            console.log(ulElement.innerHTML)
+            const main = document.querySelector("main");
+            main.appendChild(ulElement);
+        };
+        function removeItem(id){
+            const element = document.getElementById(id);
+            const main = document.querySelector("main");
+            main.removeChild(element);
+        };
+    </script>
+</head>
+<body>
+    <main>
+        <div name="content" class="big bold bright">d1</div>
+        <div class="big bold" id="companyName">d2</div>
+        <div class="big" name="content">d3</div>
+    </main>
+    <script>
+        const companyNameElement = document.querySelector("#companyName");
+        companyNameElement.innerHTML=myFunctions.getCompanyName() + " seet using query selector by id";
+
+        const boldNodesQuerySelected = document.querySelectorAll(".bold");
+        for(let i=0;i<boldNodesQuerySelected.length;i++){
+            boldNodesQuerySelected[i].innerHTML +=" ... and bold selected with query"
+        };
+
+        addListInMain(10);
+        removeItem("companyName");
+    </script>
+</body>
+</html>

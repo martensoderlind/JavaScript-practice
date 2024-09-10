@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div>
+        <h1 class="mainResult">1000</h1>
+        <h1 class="mainResult">-1000</h1>
+        <h1 class="mainResult">A name - nut a number</h1>
+    </div>
+    <Script>
+        function styling(element, content){
+            const convert = Number(content);
+            if(Number.isNaN(convert)){
+                return;
+            };
+            if(convert<0){
+                element.classList.add("negativResult")
+                return;
+            }
+            
+            element.classList.add("positivNumber")
+        };
+        function getElements(){
+            const elements = document.querySelectorAll(".mainResult");
+
+            for (let i = 0; i<elements.length;i++){
+                const tContent = elements[i].textContent;
+
+                styling(elements[i], tContent);
+            };
+        };
+        getElements();
+        
+    </Script>
+</body>
+</html>
