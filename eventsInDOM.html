@@ -5,29 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-</head>
     <script>
-        function invertColorsOfResult(){
-            const mainResultElements = document.querySelectorAll(".mainresult");
-
+        
+        function invertColorsOfResults(){
+            const mainResultElements = document.querySelectorAll(".mainResult");
+            console.log(mainResultElements.length)
             for (let i = 0; i<mainResultElements.length;i++){
                 const element = mainResultElements[i];
-                console.log(element.textContent);
-            
-                if (element.classList.contains("positivResult")){
-                    element.classList.remove("positivResult");
+                
+                if (element.classList.contains("positivNumber")){
+                    element.classList.remove("positivNumber");
                     element.classList.add("negativResult");
                     continue;
                 };
                 if (element.classList.contains("negativResult")){
                     element.classList.remove("negativResult");
-                    element.classList.add("positivResult");
+                    element.classList.add("positivNumber");
                     continue;
                 };
             };
         };
-
-
+        
+        const btn = document.getElementById("btnF");
+        btn.addEventListener("Click", ()=>{
+            invertColorsOfResults
+        });
+        
         function addStyling(element, content){
             const convert = Number(content);
             if(Number.isNaN(convert)){
@@ -54,8 +57,10 @@
             getElements();
         });
     </script>
+</head>
 <body>
     <div>
+        <button id="btnF"> invert colors</button>
         <h1 class="mainResult">1000</h1>
         <h1 class="mainResult">-1000</h1>
         <h1 class="mainResult">A name - nut a number</h1>
