@@ -5,23 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script>
+        function imgDiv(user){
+            const userImg = document.createElement("img");
+            userImg.src = `${user.picture.thumbnail}`;
+            return userImg;
+        };
+        function headerDiv(user){
+            const userHeading = document.createElement("h2");
+            userHeading.textContent=`${user.name.title} ${user.name.first} ${user.name.last}`
+            return userHeading;
+        };
+
+        function createUserList(users){
+            const userList = document.createElement("div");
+
+            for(let i = 0;i<users.length; i++){
+                const user = user[i];
+                const userHeading = headerDiv(user);
+                const userImg =imgDiv(user);
+
+                const userDiv = document.createElement("div");
+                userDiv.appendChild(userHeading);
+                userDiv.appendChild(userImg);
+
+                userList.appendChild(userDiv);
+            };
+            return userList;
+        };
+
         function getUsers(element) {
             fetch("https://randomuser.me/api/?gender=female&results=30")
               .then((response) => response.json())
               .then((data) => {
-                for(let i = 0;i<data.results.length; i++){
-                    const divUser = document.createElement("div");
-                    const name = document.createElement("h2");
-                    const img = document.createElement("img");
-                    
-                    name.textContent=data.results[i].name.first+" "+data.results[i].name.last;
-                    img.src=data.results[i].picture.medium
-                    element.appendChild(divUser);
-                    divUser.appendChild(img);
-                    divUser.appendChild(name);      
-                };
+                const userList = createUserList(data.results);
+                element.appendChild(userList);
             });
-        }
+        };
         document.addEventListener("DOMContentLoaded",()=>{
             const main = document.getElementById("main");
             getUsers(main);
