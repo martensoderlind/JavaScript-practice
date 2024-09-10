@@ -6,7 +6,6 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
     <script>
-        
         function invertColorsOfResults(){
             const mainResultElements = document.querySelectorAll(".mainResult");
             console.log(mainResultElements.length)
@@ -25,12 +24,7 @@
                 };
             };
         };
-        
-        const btn = document.getElementById("btnF");
-        btn.addEventListener("Click", ()=>{
-            invertColorsOfResults
-        });
-        
+
         function addStyling(element, content){
             const convert = Number(content);
             if(Number.isNaN(convert)){
@@ -58,6 +52,7 @@
         });
     </script>
 </head>
+
 <body>
     <div>
         <button id="btnF"> invert colors</button>
@@ -65,5 +60,9 @@
         <h1 class="mainResult">-1000</h1>
         <h1 class="mainResult">A name - nut a number</h1>
     </div>
+    <script>
+        const btn = document.getElementById("btnF");
+        btn.onclick = invertColorsOfResults;
+    </script>
 </body>
 </html>
